@@ -104,7 +104,8 @@ class DataLoader:
                                     context_video_features_file[id_][()] if context_video_features_file else None,
                                     text_embeddings[idx] if text_embeddings else None,
                                     context_embeddings[idx] if context_embeddings else None,
-                                    dataset_dict[id_]["show"]))
+                                    dataset_dict[id_]["show"],
+                                    dataset_dict[id_]["sentiment"])) # DL PROJECT: Sentiment Analysis input
             self.data_output.append(int(dataset_dict[id_]["sarcasm"]))
 
     def load_context_bert(self, dataset: Mapping[str, Mapping[str, Any]]) -> Iterable[Iterable[np.ndarray]]:
@@ -236,6 +237,7 @@ class DataHelper:
     CONTEXT_VIDEO_ID = 6
     TEXT_BERT_ID = 7
     CONTEXT_BERT_ID = 8
+    SENTIMENT_TEXT_ID = 10  # DL PROJECT: Sentiment Analysis input
 
     PAD_ID = 0
     UNK_ID = 1
@@ -388,6 +390,9 @@ class DataHelper:
         word_indices = word_indices + [self.PAD_ID] * (self.config.max_sent_length - len(word_indices))
         assert len(word_indices) == self.config.max_sent_length
         return word_indices
+    
+    def get_sentiment_text(self, mode: str) -> np.ndarray: # DL PROJECT: Sentiment Analysis input
+        return self.get_data(self.SENTIMENT_TEXT_ID, mode)
 
     def get_target_bert_feature(self, mode: str) -> MutableSequence[np.ndarray]:
         return self.get_data(self.TEXT_BERT_ID, mode)

@@ -10,6 +10,10 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 class Config:
+
+    # DL PROJECT CONFIG
+    use_sentiment_text = False  # adds sentiment features to text
+
     model = "SVM"
     runs = 1  # No. of runs of experiments
 
@@ -26,13 +30,12 @@ class Config:
     speaker_independent = False  # speaker independent experiments
 
     embedding_dim = 300  # GloVe embedding size
-
     word_embedding_path = os.path.join(current_dir, "data/glove.840B.300d.txt") 
     max_sent_length = 20
     max_context_length = 4  # Maximum sentences to take in context
     num_classes = 2  # Binary classification of sarcasm
 
-    svm_c = 10.0
+    svm_c = 1.0
     svm_scale = True
 
     fold = None
