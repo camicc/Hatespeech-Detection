@@ -4,6 +4,11 @@ available at https://github.com/soujanyaporia/MUStARD
 and is licensed under the MIT License.
 """
 
+import os
+# Get the directory of the current file
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+
 class Config:
     model = "SVM"
     runs = 1  # No. of runs of experiments
@@ -22,7 +27,7 @@ class Config:
 
     embedding_dim = 300  # GloVe embedding size
 
-    word_embedding_path = "/Users/david/Documents/GitHub/Hatespeech-Detection/data/glove.840B.300d.txt"
+    word_embedding_path = os.path.join(current_dir, "data/glove.840B.300d.txt") 
     max_sent_length = 20
     max_context_length = 4  # Maximum sentences to take in context
     num_classes = 2  # Binary classification of sarcasm
