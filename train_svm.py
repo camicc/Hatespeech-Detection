@@ -111,6 +111,15 @@ def train_io(config: Config, data: DataLoader, train_index: Iterable[int],
         train_input = np.concatenate([train_input, train_input_context], axis=1)
         test_input = np.concatenate([test_input, test_input_context], axis=1)
 
+    # DL PROJECT: Sentiment Analysis input
+
+    if config.use_sentiment_text:
+        train_input_sentiment_text = datahelper.get_sentiment_text(mode="train")
+        test_input_sentiment_text = datahelper.get_sentiment_text(mode="test")
+
+        train_input = np.concatenate([train_input, train_input_sentiment_text], axis=1)
+        test_input = np.concatenate([test_input, test_input_sentiment_text], axis=1)
+
     train_output = datahelper.one_hot_output(mode="train", size=config.num_classes)
     test_output = datahelper.one_hot_output(mode="test", size=config.num_classes)
 
