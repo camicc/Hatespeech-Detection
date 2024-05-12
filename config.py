@@ -12,7 +12,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 class Config:
 
     # DL PROJECT CONFIG
-    use_sentiment_text = False  # adds sentiment features to text
+    use_sentiment_text = True  # adds sentiment features to text
 
     model = "SVM"
     runs = 1  # No. of runs of experiments

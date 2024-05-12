@@ -28,7 +28,7 @@ def pickle_loader(filename: str) -> Any:
 
 
 class DataLoader:
-    DATA_PATH = "data/sarcasm_data.json"
+    DATA_PATH = "data/sarcasm_data_sentiment.json"
     AUDIO_PICKLE = "data/audio_features.p"
     INDICES_FILE = "data/split_indices.p"
     GLOVE_DICT = "data/glove_full_dict.p"
@@ -105,7 +105,7 @@ class DataLoader:
                                     text_embeddings[idx] if text_embeddings else None,
                                     context_embeddings[idx] if context_embeddings else None,
                                     dataset_dict[id_]["show"],
-                                    dataset_dict[id_]["sentiment"])) # DL PROJECT: Sentiment Analysis input
+                                    dataset_dict[id_]["sentiment_utterance"])) # DL PROJECT: Sentiment Analysis input
             self.data_output.append(int(dataset_dict[id_]["sarcasm"]))
 
     def load_context_bert(self, dataset: Mapping[str, Mapping[str, Any]]) -> Iterable[Iterable[np.ndarray]]:
