@@ -1,2 +1,2 @@
-# Hatespeech-Detection
-Deep Learning Project to address hate speech by detecting it across various types of data and managing it without resorting to censorship.
+# Sarcasm Detection
+This project focuses on simplifying sarcasm detection algorithms to reduce complexity and computational cost while evaluating their impact on detection performance. To enhance the intuitiveness of the process, we utilize pre-existing Sentiment Analysis models that can detect a single emotion per frame. By analyzing the sequence of emotions detected across multiple frames, we aim to identify patterns that indicate the presence of sarcasm. For instance, a series of frames displaying emotions such as "happy, happy, sad" might suggest that the next frame contains sarcastic content. This approach not only enables more efficient sarcasm detection but also provides insights into what serie of emotion compose this delicate humour.
