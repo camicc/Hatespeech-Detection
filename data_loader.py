@@ -1,3 +1,9 @@
+"""
+This file uses modified code from the "MUStARD: Multimodal Sarcasm Detection Dataset", 
+available at https://github.com/soujanyaporia/MUStARD
+and is licensed under the MIT License.
+"""
+
 import json
 import os
 import pickle

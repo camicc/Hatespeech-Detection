@@ -1,4 +1,9 @@
-#!/usr/bin/env python
+"""
+This file uses modified code from the "MUStARD: Multimodal Sarcasm Detection Dataset", 
+available at https://github.com/soujanyaporia/MUStARD
+and is licensed under the MIT License.
+"""
+
 import argparse
 import json
 import os
