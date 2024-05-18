@@ -1,3 +1,9 @@
+"""
+This file uses modified code from the "MUStARD: Multimodal Sarcasm Detection Dataset", 
+available at https://github.com/soujanyaporia/MUStARD
+and is licensed under the MIT License.
+"""
+
 import json
 import os
 import pickle
@@ -11,7 +17,7 @@ import nltk
 import numpy as np
 from sklearn.model_selection import StratifiedKFold
 
-import config
+import old_david.config_old as config_old
 
 CLS_TOKEN_INDEX = 0
 
@@ -22,7 +28,7 @@ def pickle_loader(filename: str) -> Any:
 
 
 class DataLoader:
-    DATA_PATH = "data/sarcasm_data_sentiment_UO.json"
+    DATA_PATH = "data/sarcasm_data_sentiment.json"
     AUDIO_PICKLE = "data/audio_features.p"
     INDICES_FILE = "data/split_indices.p"
     BERT_TARGET_EMBEDDINGS = "data/bert-output.jsonl"
@@ -33,7 +39,7 @@ class DataLoader:
     UNK_TOKEN = "<UNK>"
     PAD_TOKEN = "<PAD>"
 
-    def __init__(self, config: config.Config) -> None:
+    def __init__(self, config: config_old.Config) -> None:
         self.config = config
 
         with open(self.DATA_PATH) as file:
@@ -96,7 +102,7 @@ class DataLoader:
                                     text_embeddings[idx] if text_embeddings else None,
                                     context_embeddings[idx] if context_embeddings else None,
                                     dataset_dict[id_]["show"],
-                                    dataset_dict[id_]["sentiment_features"])) # DL PROJECT: Sentiment Analysis input
+                                    dataset_dict[id_]["sentiment_utterance"])) # DL PROJECT: Sentiment Analysis input
             self.data_output.append(int(dataset_dict[id_]["sarcasm"]))
 
     def load_context_bert(self, dataset: Mapping[str, Mapping[str, Any]]) -> Iterable[Iterable[np.ndarray]]:
@@ -182,8 +188,9 @@ class DataHelper:
     PAD_TOKEN = "<PAD>"
     UNK_TOKEN = "<UNK>"
 
+
     def __init__(self, train_input: Sequence[Tuple[Any, ...]], train_output: Sequence[int],
-                 test_input: Sequence[Tuple[Any, ...]], test_output: Sequence[int], config: config.Config,
+                 test_input: Sequence[Tuple[Any, ...]], test_output: Sequence[int], config: config_old.Config,
                  data_loader: DataLoader) -> None:
         self.data_loader = data_loader
         self.config = config
@@ -267,7 +274,7 @@ class DataHelper:
         word_indices = word_indices + [self.PAD_ID] * (self.config.max_sent_length - len(word_indices))
         assert len(word_indices) == self.config.max_sent_length
         return word_indices
-
+    
     def get_sentiment_text(self, mode: str) -> np.ndarray: # DL PROJECT: Sentiment Analysis input
         return self.get_data(self.SENTIMENT_TEXT_ID, mode)
 
@@ -365,44 +372,3 @@ class DataHelper:
 
         assert np.array_equal(data, np.argmax(one_hot_data, axis=1))
         return one_hot_data
-
-    # ### Audio related functions ####
-
-    @staticmethod
-    def get_audio_max_length(data: Iterable[np.ndarray]) -> int:
-        return max(feature.shape[1] for feature in data)
-
-    @staticmethod
-    def pad_audio(data: MutableSequence[np.ndarray], max_length: int) -> np.ndarray:
-        for i, instance in enumerate(data):
-            if instance.shape[1] < max_length:
-                instance = np.concatenate([instance, np.zeros((instance.shape[0], (max_length - instance.shape[1])))],
-                                          axis=1)
-                data[i] = instance
-            data[i] = data[i][:, :max_length]
-            data[i] = data[i].transpose()
-        return np.array(data)
-
-    def get_target_audio(self, mode: str) -> np.ndarray:
-        audio = self.get_data(self.TARGET_AUDIO_ID, mode)
-
-        if mode == "train":
-            self.audio_max_length = self.get_audio_max_length(audio)
-
-        audio = self.pad_audio(audio, self.audio_max_length)
-
-        if mode == "train":
-            self.config.audio_length = audio.shape[1]
-            self.config.audio_embedding = audio.shape[2]
-
-        return audio
-
-    def get_target_audio_pool(self, mode: str) -> np.ndarray:
-        audio = self.get_data(self.TARGET_AUDIO_ID, mode)
-        return np.array([np.mean(feature_vector, axis=1) for feature_vector in audio])
-
-    # ### Video related functions ####
-
-    def get_target_video_pool(self, mode: str) -> np.ndarray:
-        video = self.get_data(self.TARGET_VIDEO_ID, mode)
-        return np.array([np.mean(feature_vector, axis=0) for feature_vector in video])

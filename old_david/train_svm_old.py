@@ -1,3 +1,9 @@
+"""
+This file uses modified code from the "MUStARD: Multimodal Sarcasm Detection Dataset", 
+available at https://github.com/soujanyaporia/MUStARD
+and is licensed under the MIT License.
+"""
+
 #!/usr/bin/env python
 import argparse
 import json
@@ -11,8 +17,8 @@ from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import FunctionTransformer, StandardScaler
 
-from config import CONFIG_BY_KEY, Config
-from data_loader import DataHelper, DataLoader
+from old_david.config_old import CONFIG_BY_KEY, Config
+from old_david.data_loader_old import DataHelper, DataLoader
 
 RESULT_FILE = "output/{}.json"
 
@@ -38,10 +44,10 @@ def svm_test(clf: sklearn.base.BaseEstimator, test_input: np.ndarray,
     y_true = np.argmax(test_output, axis=1)
 
     # To generate random scores
-    # y_pred = np.random.randint(2, size=len(y_pred))
+    #y_pred = np.random.randint(2, size=len(y_pred))
 
     # To generate majority baseline
-    # y_pred = [0] * len(y_pred)
+    #y_pred = [0] * len(y_pred)
 
     result_string = classification_report(y_true, y_pred, digits=3)
     print(confusion_matrix(y_true, y_pred))
@@ -59,7 +65,6 @@ def train_io(config: Config, data: DataLoader, train_index: Iterable[int],
     train_input = np.empty((len(train_input), 0))
     test_input = np.empty((len(test_input), 0))
 
-    
     # DL PROJECT: Sentiment Analysis input
 
     if config.use_sentiment_text:
@@ -73,21 +78,6 @@ def train_io(config: Config, data: DataLoader, train_index: Iterable[int],
         if config.use_bert:
             train_input = np.concatenate([train_input, datahelper.get_target_bert_feature(mode="train")], axis=1)
             test_input = np.concatenate([test_input, datahelper.get_target_bert_feature(mode="test")], axis=1)
-        else:
-            train_input = np.concatenate([train_input,
-                                          np.array([datahelper.pool_text(utt)
-                                                    for utt in datahelper.vectorize_utterance(mode="train")])], axis=1)
-            test_input = np.concatenate([test_input,
-                                         np.array([datahelper.pool_text(utt)
-                                                   for utt in datahelper.vectorize_utterance(mode="test")])], axis=1)
-
-    if config.use_target_video:
-        train_input = np.concatenate([train_input, datahelper.get_target_video_pool(mode="train")], axis=1)
-        test_input = np.concatenate([test_input, datahelper.get_target_video_pool(mode="test")], axis=1)
-
-    if config.use_target_audio:
-        train_input = np.concatenate([train_input, datahelper.get_target_audio_pool(mode="train")], axis=1)
-        test_input = np.concatenate([test_input, datahelper.get_target_audio_pool(mode="test")], axis=1)
 
     if train_input.shape[1] == 0:
         raise ValueError("Invalid modalities")
