@@ -21,9 +21,9 @@ class Config:
     use_context = False  # whether to use context information or not (default false)
     use_author = False  # add author one-hot encoding in the input
 
-    use_bert = True  # if False, uses glove pooling
+    use_bert = False  # if False, uses glove pooling
 
-    use_target_text = True  # adds text target utterance features.
+    use_target_text = False  # adds text target utterance features.
     use_target_audio = False  # adds audio target utterance features.
     use_target_video = False  # adds video target utterance features.
 

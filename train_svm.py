@@ -68,17 +68,26 @@ def train_io(config: Config, data: DataLoader, train_index: Iterable[int],
     train_input = np.empty((len(train_input), 0))
     test_input = np.empty((len(test_input), 0))
 
+    # DL PROJECT: Sentiment Analysis input
+
+    if config.use_sentiment_text:
+        train_input_sentiment_text = datahelper.get_sentiment_text(mode="train")
+        test_input_sentiment_text = datahelper.get_sentiment_text(mode="test")
+
+        train_input = np.concatenate([train_input, train_input_sentiment_text], axis=1)
+        test_input = np.concatenate([test_input, test_input_sentiment_text], axis=1)
+
     if config.use_target_text:
         if config.use_bert:
             train_input = np.concatenate([train_input, datahelper.get_target_bert_feature(mode="train")], axis=1)
             test_input = np.concatenate([test_input, datahelper.get_target_bert_feature(mode="test")], axis=1)
-        else:
+        """else:
             train_input = np.concatenate([train_input,
                                           np.array([datahelper.pool_text(utt)
                                                     for utt in datahelper.vectorize_utterance(mode="train")])], axis=1)
             test_input = np.concatenate([test_input,
                                          np.array([datahelper.pool_text(utt)
-                                                   for utt in datahelper.vectorize_utterance(mode="test")])], axis=1)
+                                                   for utt in datahelper.vectorize_utterance(mode="test")])], axis=1)"""
 
     if config.use_target_video:
         train_input = np.concatenate([train_input, datahelper.get_target_video_pool(mode="train")], axis=1)
@@ -110,15 +119,6 @@ def train_io(config: Config, data: DataLoader, train_index: Iterable[int],
 
         train_input = np.concatenate([train_input, train_input_context], axis=1)
         test_input = np.concatenate([test_input, test_input_context], axis=1)
-
-    # DL PROJECT: Sentiment Analysis input
-
-    if config.use_sentiment_text:
-        train_input_sentiment_text = datahelper.get_sentiment_text(mode="train")
-        test_input_sentiment_text = datahelper.get_sentiment_text(mode="test")
-
-        train_input = np.concatenate([train_input, train_input_sentiment_text], axis=1)
-        test_input = np.concatenate([test_input, test_input_sentiment_text], axis=1)
 
     train_output = datahelper.one_hot_output(mode="train", size=config.num_classes)
     test_output = datahelper.one_hot_output(mode="test", size=config.num_classes)
