@@ -13,7 +13,7 @@ class Config:
     runs = 1  # No. of runs of experiments
 
     # Training modes
-    use_context = False  # whether to use context information or not (default false)
+    use_context = True  # whether to use context information or not (default false)
     use_author = False  # add author one-hot encoding in the input
 
     use_bert = True  # if False, uses glove pooling

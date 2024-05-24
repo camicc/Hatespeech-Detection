@@ -110,9 +110,9 @@ def train_io(config: Config, data: DataLoader, train_index: Iterable[int],
         if config.use_bert:
             train_input_context = datahelper.get_context_bert_features(mode="train")
             test_input_context = datahelper.get_context_bert_features(mode="test")
-        else:
-            train_input_context = datahelper.get_context_pool(mode="train")
-            test_input_context = datahelper.get_context_pool(mode="test")
+        #else:
+        #    train_input_context = datahelper.get_context_pool(mode="train")
+        #    test_input_context = datahelper.get_context_pool(mode="test")
 
         train_input = np.concatenate([train_input, train_input_context], axis=1)
         test_input = np.concatenate([test_input, test_input_context], axis=1)
