@@ -13,10 +13,10 @@ class Config:
     runs = 1  # No. of runs of experiments
 
     # Training modes
-    use_context = True  # whether to use context information or not (default false)
+    use_context = True # whether to use context information or not (default false)
     use_author = False  # add author one-hot encoding in the input
 
-    use_bert = True  # if False, uses glove pooling
+    use_bert = False 
 
     use_target_text = False
     use_target_audio = False  # adds audio target utterance features.
@@ -41,19 +41,21 @@ class SpeakerDependentSConfig(Config): # s
     svm_c = 1.0
 
 class SpeakerIndependentSConfig(Config): # i-s
-    use_sentiment_text = True 
+    use_sentiment_text = True
     svm_scale = False
     svm_c = 10.0
     speaker_independent = True
 
 class SpeakerDependentSTConfig(Config): # st
     use_target_text = True
+    use_bert = True
     use_sentiment_text = True
     svm_c = 1.0
 
 class SpeakerIndependentSTConfig(Config): # i-st
     svm_scale = False
     use_target_text = True
+    use_bert = True
     use_sentiment_text = True
     svm_c = 10.0
     speaker_independent = True
@@ -62,11 +64,13 @@ class SpeakerIndependentSTConfig(Config): # i-st
 
 class SpeakerDependentTConfig(Config): # t
     use_target_text = True
+    use_bert = True
     svm_c = 1.0
 
 class SpeakerIndependentTConfig(Config): # i-t
     svm_scale = False
     use_target_text = True
+    use_bert = True
     svm_c = 10.0
     speaker_independent = True
 
