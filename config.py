@@ -13,7 +13,7 @@ class Config:
     runs = 1  # No. of runs of experiments
 
     # Training modes
-    use_context = True # whether to use context information or not (default false)
+    use_context = False # whether to use context information or not (default false)
     use_author = False # add author one-hot encoding in the input
 
     use_bert = False 
@@ -52,10 +52,26 @@ class SpeakerDependentSTConfig(Config): # st
     use_sentiment_text = True
     svm_c = 1.0
 
+class SpeakerDependentCSTConfig(Config): # st-c
+    use_target_text = True
+    use_bert = True
+    use_context = True
+    use_sentiment_text = True
+    svm_c = 1.0
+
 class SpeakerIndependentSTConfig(Config): # i-st
     svm_scale = False
     use_target_text = True
     use_bert = True
+    use_sentiment_text = True
+    svm_c = 10.0
+    speaker_independent = True
+
+class SpeakerIndependentCSTConfig(Config): # i-st-c
+    svm_scale = False
+    use_target_text = True
+    use_bert = True
+    use_context = True
     use_sentiment_text = True
     svm_c = 10.0
     speaker_independent = True
@@ -67,6 +83,12 @@ class SpeakerDependentTConfig(Config): # t
     use_bert = True
     svm_c = 1.0
 
+class SpeakerDependentCTConfig(Config): # t-c
+    use_target_text = True
+    use_bert = True
+    use_context = True
+    svm_c = 1.0
+
 class SpeakerIndependentTConfig(Config): # i-t
     svm_scale = False
     use_target_text = True
@@ -74,155 +96,24 @@ class SpeakerIndependentTConfig(Config): # i-t
     svm_c = 10.0
     speaker_independent = True
 
-
-class SpeakerDependentAConfig(Config):
-    use_target_audio = True
-    svm_c = 1.0
-
-
-class SpeakerDependentVConfig(Config):
-    use_target_video = True
-    svm_c = 1.0
-
-
-class SpeakerDependentTAConfig(Config):
+class SpeakerIndependentTConfig(Config): # i-t-c
+    svm_scale = False
     use_target_text = True
-    use_target_audio = True
-    svm_c = 1.0
-
-
-class SpeakerDependentTVConfig(Config):
-    use_target_text = True
-    use_target_video = True
-    svm_c = 10.0
-
-
-class SpeakerDependentAVConfig(Config):
-    use_target_audio = True
-    use_target_video = True
-    svm_c = 30.0
-
-
-class SpeakerDependentTAVConfig(Config):
-    use_target_text = True
-    use_target_audio = True
-    use_target_video = True
-    svm_c = 10.0
-
-
-class SpeakerDependentTPlusContext(SpeakerDependentTConfig):
-    use_context = True
-    svm_c = 1.0
-
-
-class SpeakerDependentTPlusAuthor(SpeakerDependentTConfig):
-    use_author = True
-    svm_c = 10.0
-
-
-class SpeakerDependentTVPlusContext(SpeakerDependentTVConfig):
+    use_bert = True
     use_context = True
     svm_c = 10.0
-
-
-class SpeakerDependentTVPlusAuthor(SpeakerDependentTVConfig):
-    use_author = True
-    svm_c = 10.0
-
-
-class SpeakerIndependentAConfig(Config):
-    svm_scale = False
-    use_target_audio = True
-    svm_c = 1000.0
     speaker_independent = True
-
-
-class SpeakerIndependentVConfig(Config):
-    svm_scale = False
-    use_target_video = True
-    svm_c = 30.0
-    speaker_independent = True
-
-
-class SpeakerIndependentTAConfig(Config):
-    svm_scale = False
-    use_target_text = True
-    use_target_audio = True
-    svm_c = 500.0
-    speaker_independent = True
-
-
-class SpeakerIndependentTVConfig(Config):
-    svm_scale = False
-    use_target_text = True
-    use_target_video = True
-    svm_c = 10.0
-    speaker_independent = True
-
-
-class SpeakerIndependentAVConfig(Config):
-    svm_scale = False
-    use_target_audio = True
-    use_target_video = True
-    svm_c = 500.0
-    speaker_independent = True
-
-
-class SpeakerIndependentTAVConfig(Config):
-    svm_scale = False
-    use_target_text = True
-    use_target_audio = True
-    use_target_video = True
-    svm_c = 1000.0
-    speaker_independent = True
-
-
-class SpeakerIndependentTPlusContext(SpeakerIndependentTConfig):
-    use_context = True
-    svm_c = 10.0
-
-
-class SpeakerIndependentTPlusAuthor(SpeakerIndependentTConfig):
-    use_author = True
-    svm_c = 10.0
-
-
-class SpeakerIndependentTAPlusContext(SpeakerIndependentTAConfig):
-    use_context = True
-    svm_c = 1000.0
-
-
-class SpeakerIndependentTAPlusAuthor(SpeakerIndependentTAConfig):
-    use_author = True
-    svm_c = 1000.0
-
 
 CONFIG_BY_KEY = {
     "": Config(),
     "t": SpeakerDependentTConfig(),
-    "a": SpeakerDependentAConfig(),
-    "v": SpeakerDependentVConfig(),
-    "ta": SpeakerDependentTAConfig(),
-    "tv": SpeakerDependentTVConfig(),
-    "av": SpeakerDependentAVConfig(),
-    "tav": SpeakerDependentTAVConfig(),
-    "t-c": SpeakerDependentTPlusContext(),
-    "t-author": SpeakerDependentTPlusAuthor(),
-    "tv-c": SpeakerDependentTVPlusContext(),
-    "tv-author": SpeakerDependentTVPlusAuthor(),
     "i-t": SpeakerIndependentTConfig(),
-    "i-a": SpeakerIndependentAConfig(),
-    "i-v": SpeakerIndependentVConfig(),
-    "i-ta": SpeakerIndependentTAConfig(),
-    "i-tv": SpeakerIndependentTVConfig(),
-    "i-av": SpeakerIndependentAVConfig(),
-    "i-tav": SpeakerIndependentTAVConfig(),
-    "i-t-c": SpeakerIndependentTPlusContext(),
-    "i-t-author": SpeakerIndependentTPlusAuthor(),
-    "i-ta-c": SpeakerIndependentTAPlusContext(),
-    "i-ta-author": SpeakerIndependentTAPlusAuthor(),
     "s": SpeakerDependentSConfig(),
     "i-s": SpeakerIndependentSConfig(),
     "st": SpeakerDependentSTConfig(),
     "i-st": SpeakerIndependentSTConfig(),
+    "st-c": SpeakerDependentCSTConfig(),
+    "i-st-c": SpeakerIndependentCSTConfig(),
+    "t-c": SpeakerDependentCTConfig(),
+    "i-t-c": SpeakerIndependentTConfig(),
 }
