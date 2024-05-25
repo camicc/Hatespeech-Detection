@@ -14,7 +14,7 @@ class Config:
 
     # Training modes
     use_context = True # whether to use context information or not (default false)
-    use_author = False  # add author one-hot encoding in the input
+    use_author = False # add author one-hot encoding in the input
 
     use_bert = False 
 

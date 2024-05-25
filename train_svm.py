@@ -124,6 +124,8 @@ def train_speaker_independent(config: Config, data: DataLoader, model_name: str)
     train_input, train_output, test_input, test_output = train_io(config=config, data=data, train_index=train_index,
                                                                   test_index=test_index)
 
+    print("I;Train Input Shape:", train_input.shape)
+
     clf = svm_train(config=config, train_input=train_input, train_output=train_output)
     svm_test(clf, test_input, test_output)
 
@@ -136,6 +138,8 @@ def train_speaker_dependent(config: Config, data: DataLoader, model_name: str) -
 
         train_input, train_output, test_input, test_output = train_io(config=config, data=data, train_index=train_index,
                                                                       test_index=test_index)
+        
+        print("D;Train Input Shape:", train_input.shape)
 
         clf = svm_train(config=config, train_input=train_input, train_output=train_output)
         result_dict, result_str = svm_test(clf, test_input, test_output)
