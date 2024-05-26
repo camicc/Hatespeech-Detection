@@ -1,5 +1,5 @@
 # Data
-/output
+src/output
 data/bert-output-context.jsonl
 data/bert-output.jsonl
 data/split_indices.p

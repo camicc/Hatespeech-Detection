@@ -6,6 +6,12 @@ Abstract— blblbblblbl
 
 **Team members**: Camille Pittet, David Friou and Théo Lacroix
 
+# Table of contents
+
+- [How to run our project](#how-to-run-our-project)
+- [Folders and files](#folders-and-files)
+- [Mentions](#mentions)
+
 # How to run our project
 
 To reproduce our results,  navigate to the `src` directory and execute the following command:
@@ -48,7 +54,7 @@ CONFIG_BY_KEY = {
 
 ## Specifying Data Paths
 
-To choose between the variants in the Sentiment Analysis and Sentiment Processing Strategies, update the `DATA_PATH` in the `data_loader.py` file within the `preprocessed_data`folder. The path follows this nomenclature:
+To choose between the variants in the Sentiment Analysis and Sentiment Processing Strategies, update the `DATA_PATH` in the `data_loader.py` file within the `preprocessed_data` folder. The path follows this nomenclature :
 
 ```python
 DATA_PATH = "preprocessed_data/sarcasm_data_SentimentModel_###.json"
@@ -75,9 +81,9 @@ python train_svm.py
 
 Results will be displayed in the terminal, and an output/SVM.json file will be generated, storing the output.
 
-## Data
+## Required Data
 
-In order to be albe to test the enhancement through sentiment integration to the pre-existing algorithm used in the MUStARD model (see mentions), the following files are needed: 
+In order to be albe to test the enhancement through sentiment integration to the pre-existing algorithm used in the MUStARD model (see [Mentions](#mentions)), the following files are needed: 
 
  - [Download the pre-extracted BERT features](https://drive.google.com/file/d/1GYv74vN80iX_IkEmkJhkjDRGxLvraWuZ/view?usp=sharing) and place the two files directly under the folder `data/` (so they are `data/bert-output.jsonl` and `data/bert-output-context.jsonl`)
 
@@ -95,10 +101,10 @@ The following libraries are required to run our project:
 - `torch`
 
 You can install them using one of the followings commands:
-```
+```bash
 pip install -r requirements.txt
 ```
-```
+```bash
 conda env create -f environment.yml
 ```
 
@@ -109,25 +115,25 @@ List of all the files we implemented or modified for the scope of this project.
 Contains the source code of the project
 
 ### `train_svm.py`
-Script used to run all experiments.
+Script to run all experiments.
 
 ### `data_loader.py`
-Script to help load the data into the classification model and select the *Data Paths* to choose between the variants in the Sentiment Analysis and Sentiment Processing Strategies
+Manages data loading and select the *Data Paths* to choose between the variants in the Sentiment Analysis and Sentiment Processing Strategies.
 
 ### `config.py`
-A config file to select the parametres to choose the model configuration to use as well than the training and testing conditions, as explained in (how to run your code). 
+Manages configuration settings for model experiments, as explained in [here](#how-to-run-our-project). 
 It enable as well the *--config-key* argument for run the script `train_svm.py`.
 
-### `Sentiments_features.ipynb`
-Notebook used to perform the sentimen analysis with the two model VADER and Hartmann. As well as that prepare the sentiment Processing Strategies in the correct format to run our experiments.
+### `sentiments_features.ipynb`
+Notebook for performing sentiment analysis with VADER and Hartmann models on the utterances and context for all our variants.
 
 ## `preprocessed_data/`
-Folder storing all the variants in the Sentiment Analysis and Sentiment Processing Strategies used in our experiments are stored here and were created by the the `Sentiments_features.py`
+Folder storing all the variants of the Sentiment Analysis and Sentiment Processing Strategies used in our experiments, processed by `Sentiments_features.py`
 
 ## `data/`
-Folder storing the original dataset for the MUStARD project (see mention)
-as well as the BERT features mentioned in the data section.
+Folder storing the original dataset for the MUStARD project (see [mention](#mentions))
+as well as the BERT features mentioned in the [Required Data](#required-data) section.
 
 # Mentions
 
-This code uses modified code from the "MUStARD: Multimodal Sarcasm Detection Dataset" (`data_loader.py`,`train_svm.py` and `config.py`), available at https://github.com/soujanyaporia/MUStARD and is licensed under the MIT License.
+This project uses modified code from the "MUStARD: Multimodal Sarcasm Detection Dataset" (`data_loader.py`,`train_svm.py` and `config.py`), available at https://github.com/soujanyaporia/MUStARD and is licensed under the MIT License.

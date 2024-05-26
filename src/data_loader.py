@@ -17,7 +17,7 @@ import nltk
 import numpy as np
 from sklearn.model_selection import StratifiedKFold
 
-import src.config as config
+import config as config
 
 CLS_TOKEN_INDEX = 0
 
@@ -28,11 +28,11 @@ def pickle_loader(filename: str) -> Any:
 
 
 class DataLoader:
-    DATA_PATH = "preprocessed_data/sarcasm_data_vader1_UoC.json"
-    AUDIO_PICKLE = "data/audio_features.p"
-    INDICES_FILE = "data/split_indices.p"
-    BERT_TARGET_EMBEDDINGS = "data/bert-output.jsonl"
-    BERT_CONTEXT_EMBEDDINGS = "data/bert-output-context.jsonl"
+    DATA_PATH = "../preprocessed_data/sarcasm_data_vader1_UoC.json"
+    AUDIO_PICKLE = "../data/audio_features.p"
+    INDICES_FILE = "../data/split_indices.p"
+    BERT_TARGET_EMBEDDINGS = "../data/bert-output.jsonl"
+    BERT_CONTEXT_EMBEDDINGS = "../data/bert-output-context.jsonl"
     UTT_ID = 0
     CONTEXT_ID = 2
     SHOW_ID = 9
