@@ -16,8 +16,8 @@ from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import FunctionTransformer, StandardScaler
 
-from config import CONFIG_BY_KEY, Config
-from data_loader import DataHelper, DataLoader
+from src.config import CONFIG_BY_KEY, Config
+from src.data_loader import DataHelper, DataLoader
 
 RESULT_FILE = "output/{}.json"
 

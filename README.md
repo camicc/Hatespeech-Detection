@@ -8,27 +8,28 @@ Abstract— blblbblblbl
 
 # How to run our project
 
-To reproduce our results, you can execute the `train_svm.py` script. Use the following command when you are located in the main repository:
-
+To reproduce our results,  navigate to the `src` directory and execute the following command:
 ```bash
  python train_svm.py --config-key [key]
 ```
 ## Configurations Keys
 
-The *--config-key* argument lets you select the model configuration to use:
+Use the  `--config-key` argument to select the model configuration:
 
-- t: Only MUStARD model
-- s: Only Sentiment features
-- st: Combination of MUStARD and Sentiment features
+- t: Only the MUStARD model.
+- s: Only Sentiment features.
+- st: Combination of MUStARD and Sentiment features.
 
-You can also specify the training and testing conditions:
+Additionally, specify the training and testing conditions:
 
 - i-: Speaker-independent settings (default is speaker-dependent)
-- -c: Use context features along with the utterance (default uses only the utterance)
+- -c: Use context features for the MUStARD model along with the utterance (default uses only the utterance). 
+
+**Note:** The results presented in the paper utilize the context for the MUStARD model and its combinations (M-V & M-H). The context for the Sentiment features is predetermined by the chosen data paths.
 
 For example, using `i-st-c` would set the configuration to use both MUStARD and Sentiment features, in a speaker-independent setting, including context features.
  
- The configuration mappings are specified in a dictionary within the config.py file as follows:
+ The configuration mappings are specified in a dictionary within the `config.py` file as follows:
 ```javascript
 CONFIG_BY_KEY = {
     "": Config(),
@@ -54,19 +55,19 @@ DATA_PATH = "preprocessed_data/sarcasm_data_SentimentModel_###.json"
 ```
 
 Where `SentimentModel` can be: 
-- `hartmann` : Weighted scores across all categories
-- `hartmann_max` : Focus solely on the dominant sentiment
-- `vader1` : With the compound score
-- `vader2` : Without the compound score
+- `hartmann` : Weighted scores across all categories.
+- `hartmann_max` : Focus solely on the dominant sentiment.
+- `vader1` : With the compound score.
+- `vader2` : Without the compound score.
 
 And `###` can be:
 
-- `U` : Only Utterances
-- `UoC` : Overall Context Sentiment
-- `UpC` : Sentence-specific Sentiment
+- `U` : Only Utterances.
+- `UoC` : Overall Context Sentiment.
+- `UpC` : Sentence-specific Sentiment.
 
 
-You can manually modify the parameters in the config.py and execute the script without specifying a config key::
+You can manually modify the parameters in the config.py and execute the script without specifying a config key :
 
 ```
 python train_svm.py
@@ -104,18 +105,28 @@ conda env create -f environment.yml
 # Folders and files
 List of all the files we implemented or modified for the scope of this project.
 
-## `train_svm.py`
+## `src/`
+Contains the source code of the project
 
-## `data_loader.py`
+### `train_svm.py`
+Script used to run all experiments.
 
-## `config.py`
+### `data_loader.py`
+Script to help load the data into the classification model and select the *Data Paths* to choose between the variants in the Sentiment Analysis and Sentiment Processing Strategies
 
-## `Sentiments_features.py`
+### `config.py`
+A config file to select the parametres to choose the model configuration to use as well than the training and testing conditions, as explained in (how to run your code). 
+It enable as well the *--config-key* argument for run the script `train_svm.py`.
 
-## `preprocessed_data`
+### `Sentiments_features.ipynb`
+Notebook used to perform the sentimen analysis with the two model VADER and Hartmann. As well as that prepare the sentiment Processing Strategies in the correct format to run our experiments.
 
-## `data`
+## `preprocessed_data/`
+Folder storing all the variants in the Sentiment Analysis and Sentiment Processing Strategies used in our experiments are stored here and were created by the the `Sentiments_features.py`
 
+## `data/`
+Folder storing the original dataset for the MUStARD project (see mention)
+as well as the BERT features mentioned in the data section.
 
 # Mentions
 
