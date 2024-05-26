@@ -9,7 +9,7 @@ Abstract— blblbblblbl
 # Table of contents
 
 - [How to run our project](#how-to-run-our-project)
-- [Folders and files](#folders-and-files)
+- [Project Structure](#project-structure)
 - [Mentions](#mentions)
 
 # How to run our project
@@ -108,7 +108,7 @@ pip install -r requirements.txt
 conda env create -f environment.yml
 ```
 
-# Folders and files
+# Project Structure
 List of all the files we implemented or modified for the scope of this project.
 
 ## `src/`
