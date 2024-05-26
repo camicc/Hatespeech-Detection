@@ -1,6 +1,6 @@
 # Sarcasm detection using sentiment analysis
 
-Abstract— blblbblblbl
+Abstract— This study explores sarcasm detection, which is crucial for dealing with hate speech nuances. To address this issue, sentiment analysis is incorporated into the MUStARD framework (see [Mentions](#mentions)), processing contextual dialogues into sentiments to enhance feature intuitiveness and detection accuracy. While results show only a slight enhancement in detection by adding sentiment analysis information, models with contextual information perform better, underscoring the importance of context in sarcasm detection. Despite the modest overall enhancement, the sentiment features obtained by VADER  achieves by itself a solid performance, demonstrating its effectiveness even without integration with the MUStARD features.
 
 # EE-559 Deep Learning: Group Mini-Project, Group 49
 
@@ -109,7 +109,6 @@ conda env create -f environment.yml
 ```
 
 # Project Structure
-List of all the files we implemented or modified for the scope of this project.
 
 ## `src/`
 Contains the source code of the project
