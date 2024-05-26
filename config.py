@@ -25,7 +25,6 @@ class Config:
     speaker_independent = False  # speaker independent experiments
 
     embedding_dim = 300  # GloVe embedding size
-    word_embedding_path = "/home/sacastro/glove.840B.300d.txt"
     max_sent_length = 20
     max_context_length = 4  # Maximum sentences to take in context
     num_classes = 2  # Binary classification of sarcasm
