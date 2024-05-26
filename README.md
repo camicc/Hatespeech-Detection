@@ -83,7 +83,7 @@ Results will be displayed in the terminal, and an output/SVM.json file will be g
 
 ## Required Data
 
-In order to be albe to test the enhancement through sentiment integration to the pre-existing algorithm used in the MUStARD model (see [Mentions](#mentions)), the following files are needed: 
+In order to be able to test the enhancement through sentiment integration to the pre-existing algorithm used in the MUStARD model (see [Mentions](#mentions)), the following files are needed: 
 
  - [Download the pre-extracted BERT features](https://drive.google.com/file/d/1GYv74vN80iX_IkEmkJhkjDRGxLvraWuZ/view?usp=sharing) and place the two files directly under the folder `data/` (so they are `data/bert-output.jsonl` and `data/bert-output-context.jsonl`)
 
